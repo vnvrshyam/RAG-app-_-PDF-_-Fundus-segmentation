@@ -73,7 +73,7 @@ def user_input(user_question, api_key):
     new_db = FAISS.load_local("faiss_index", embeddings)
     docs = new_db.similarity_search(user_question)
     chain = get_conversational_chain(api_key)
-    response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)
+    response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True, allow_dangerous_deserialization=True)
     st.write("Reply: ", response["output_text"])
 
 
