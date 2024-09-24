@@ -14,7 +14,7 @@ from PIL import Image
 st.set_page_config(page_title="Fundus-SegRAG", layout="wide")
 
 image  = Image.open('FSRAG.png')
-new_size = (800, 600)  # Specify your desired size (width, height)
+new_size = (200, 150)  # Specify your desired size (width, height)
 resized_image = image.resize(new_size)
 st.image(resized_image, use_column_width=True)
 
