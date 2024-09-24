@@ -9,8 +9,14 @@ from langchain.chains.question_answering import load_qa_chain
 from langchain.prompts import PromptTemplate
 import os
 from PIL import Image
+import pickle
 
+pickle_file_path = 'faiss_index\index.pkl'
 
+with open(pickle_file_path, 'rb') as f:
+    data = pickle.load(f, allow_dangerous_deserialization=True)
+    
+st.write(data)
 st.set_page_config(page_title="Fundus-SegRAG", layout="wide")
 
 image  = Image.open('FSRAG.png')
