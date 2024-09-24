@@ -53,7 +53,8 @@ def get_vector_store(text_chunks, api_key):
     vector_store = FAISS.from_texts(text_chunks, embedding=embeddings)
     vector_store.save_local("faiss_index")
 
-def get_conversational_chain():
+def get_conversational_chain(api_key):
+    # Define the prompt template for the conversational chain
     prompt_template = """
     Answer the question based on the provided research documents related to fundus segmentation. Make sure to provide as many details as possible from the context. If the answer is not available in the provided context, simply respond with, "The answer is not available in the context." Avoid providing incorrect or speculative answers.\n\n
     Context:\n {context}\n
@@ -63,16 +64,18 @@ def get_conversational_chain():
     """
     model = ChatGoogleGenerativeAI(model="gemini-pro", temperature=0.3, google_api_key=api_key)
     prompt = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
-    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt,allow_dangerous_deserialization=True)
+    chain = load_qa_chain(model, chain_type="stuff", prompt=prompt, allow_dangerous_deserialization=True)
+
     return chain
 
 def user_input(user_question, api_key):
     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001", google_api_key=api_key)
-    new_db = FAISS.load_local("faiss_index", embeddings)
+    new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
     docs = new_db.similarity_search(user_question)
-    chain = get_conversational_chain()
+    chain = get_conversational_chain(api_key)
     response = chain({"input_documents": docs, "question": user_question}, return_only_outputs=True)
     st.write("Reply: ", response["output_text"])
+
 
 def main():
     st.header("AI clone chatbot💁")
