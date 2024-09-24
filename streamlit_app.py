@@ -14,8 +14,7 @@ from PIL import Image
 st.set_page_config(page_title="Fundus-SegRAG", layout="wide")
 
 image  = Image.open('FSRAG.png')
-st.image(image,width=300,
-         height=200, center=True,use_column_width=True)
+st.image(image,use_column_width=True, center=True,use_column_width=True)
 
 st.markdown("""
 ## Fundus Seg RAG: Get instant insights from Research Journals
