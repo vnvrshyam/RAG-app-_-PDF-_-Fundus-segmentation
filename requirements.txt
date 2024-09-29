@@ -2,8 +2,7 @@ streamlit
 google-generativeai
 langchain
 PyPDF2
-chromadb
 faiss-cpu
 langchain_google_genai
-Pillow
-langchain_community
+langchain-community
+pillow
