@@ -52,7 +52,7 @@ def get_vector_store(text_chunks,api_key):
 
 def get_conversational_chain(api_key):
     prompt_template = """
-    Answer the question based on the provided research documents related to fundus segmentation. Make sure to provide as many details as possible from the context. If the answer is not available in the provided context, simply respond with, "The answer is not available in the context." Avoid providing incorrect or speculative answers.\n\n
+    Answer the question based on the document. Make sure to provide as many details as possible from the context. If the answer is not available in the provided context, simply respond with, "The answer is not available in the context." Avoid providing incorrect or speculative answers.\n\n
     Context:\n {context}\n
     Question:\n {question}\n
 
